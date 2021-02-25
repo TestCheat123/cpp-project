@@ -2,13 +2,16 @@
 #include <fstream>
 #include <ctime>
 #include <cstdlib>
+#include <iomanip>
 
 using namespace std;
 
 const int max_rand = 10;
-
-void arr_read(int*, int);
-void arr_ins(int);
+void menu();
+void menu2();
+void file_arr_read(int*, int);
+void file_rand_ins(int);
+void file_hend_ins(int);
 void arr_print(int*, int);
 void push_back_arr(int*&, int&);
 void push_front_arr(int*&, int&);
@@ -16,35 +19,183 @@ void delete_back_arr(int*&, int&);
 void delete_front_arr(int*&, int&);
 void push_k_arr(int*&, int&);
 void delete_k_arr(int*&, int&);
-void push_value_arr(int*&, int&); 
+void push_value_arr(int*&, int&);
 void delete_value_arr(int*&, int&);
+void get_variant(int*& arr, int& size_arr);
 
 int main()
 {
     //srand(time(NULL));
-    int size_arr;
     setlocale(0, "");
-    cout << "" << endl;
+    int size_arr;
+    cout << "Введите первоначальный размер массива: ";
     cin >> size_arr;
     int* arr = new int[size_arr];
-    arr_ins(size_arr);
-    arr_read(arr, size_arr);
-    arr_print(arr, size_arr);
-    cout << endl;
-    delete_value_arr(arr, size_arr);
-    arr_print(arr, size_arr);
+    get_variant(arr, size_arr);
     return 0;
 }
 
-void arr_ins(int n) {
-    fstream f_out("arr.txt", ios::out);
-    for (int i = 0; i < n; i++) {
-        f_out << rand() % max_rand << " ";
-    }
-    f_out.close();
+void get_variant(int*& arr, int& size_arr)
+{
+    int variant, variant2;
+    do
+    {
+        menu();
+        cin >> variant;
+        switch (variant)
+        {
+        case 1:
+        {
+            arr_print(arr, size_arr);
+            break;
+        }
+        case 2:
+        {
+            file_rand_ins(size_arr);
+            break;
+        }
+        case 3:
+        {
+            file_hend_ins(size_arr);
+            break;
+        }
+        case 4:
+        {
+            file_arr_read(arr, size_arr);
+            break;
+        }
+        case 5:
+        {
+            do
+            {
+                menu2();
+                cin >> variant2;
+                switch (variant2)
+                {
+                    case 1:
+                    {
+                        push_back_arr(arr, size_arr);
+                        break;
+                    }
+                    case 2:
+                    {
+                        push_front_arr(arr, size_arr);
+                        break;
+                    }
+                    case 3:
+                    {
+                        delete_back_arr(arr, size_arr);
+                        break;
+                    }
+                    case 4:
+                    {
+                        delete_front_arr(arr, size_arr);
+                        break;
+                    }
+                    case 5:
+                    {
+                        push_k_arr(arr, size_arr);
+                        break;
+                    }
+                    case 6:
+                    {
+                        delete_k_arr(arr, size_arr);
+                        break;
+                    }
+                    case 7:
+                    {
+                        push_value_arr(arr, size_arr);
+                        break;
+                    }
+                    case 8:
+                    {
+                        delete_value_arr(arr, size_arr);
+                        break;
+                    }
+                }
+            } while (variant2 != 0);
+            break;
+        }
+        }
+    } while (variant != 0);
 }
 
-void arr_read(int* arr, int n) {
+void menu()
+{
+    cout << "1.\tВывести массив на экран\n";
+    cout << "2.\tЗаполнить файл arr.txt рандомными элементами\n";
+    cout << "3.\tВручную заполнить файл arr.txt элементами\n";
+    cout << "4.\tСчитать массив из файла arr.txt (файл лежит в папке с программой)\n";
+    cout << "5.\tСписок заданий\n";
+    cout << "0.\tВыход\n>";
+}
+
+void menu2()
+{
+    cout << "1.\tЗадание 1: Добавить элементы в конец массива\n";
+    cout << "2.\tЗадание 2: Добавить элементы в начало массива\n";
+    cout << "3.\tЗадание 3: Удалить элементы с конца массива\n";
+    cout << "4.\tЗадание 4: Удалить элементы с начала массива\n";
+    cout << "5.\tЗадание 5: Добавить элмемент на k индекс массива\n";
+    cout << "6.\tЗадание 6: Удалить элемент с k индекса массива\n";
+    cout << "7.\tЗадание 7: Добавить элемент после первого встреченого элемента со значением k\n";
+    cout << "8.\tЗадание 8: Удалить все элементы массива со значением k\n";
+    cout << "0.\tВыход\n>";
+}
+
+void file_rand_ins(int n) {
+    fstream f_out("arr.txt", ios::out);
+    if (f_out)
+    {
+        for (int i = 0; i < n; i++) {
+            f_out << rand() % max_rand << " ";
+        }
+        f_out.close();
+    }
+    else cout << "Ошибка, файловый поток не был открыт";
+
+}
+
+void file_hend_ins(int n)
+{
+    int variant, error = 0;
+    do
+    {
+        cout << "Ручной ввод элементов в файл (всего " << n << " штук)\nХотите продолжить (1. Да    /   2. Нет)\n>";
+        cin >> variant;
+        if (variant == 1)
+        {
+            error = 0;
+            int a;
+            fstream f_out("arr.txt", ios::out);
+            if (f_out)
+            {
+                for (int i = 0; i < n; i++) {
+                    cin >> a;
+                    f_out << a << " ";
+                }
+                f_out.close();
+            }
+            else cout << "Ошибка, файловый поток не был открыт";
+        }
+        else
+        {
+            if (variant == 2)
+            {
+                error = 0;
+                break;
+            }
+            else
+            {
+                error = 1;
+                cout << "Выбран несуществующий вариант\nПопробуйте еще раз\n";
+            }
+        }
+    } while (error != 0);
+
+}
+
+void file_arr_read(int* arr, int n) {
     fstream f_in("arr.txt", ios::in);
     if (f_in) {
         for (int i = 0; i < n; i++) {
@@ -52,25 +203,46 @@ void arr_read(int* arr, int n) {
         }
         f_in.close();
     }
+    else cout << "Ошибка, файловый поток не был открыт";
 }
 
 void arr_print(int* arr, int n) {
     for (int i = 0; i < n; i++) {
-        cout << "[" << i << "]: " << arr[i] << "\t" << arr + i << endl;
+        cout << "[" << setw(3) << left <<  i << "]: "; cout << setw(5) << arr[i]; /*cout << setw(6) << "\t" << arr + i;*/ cout << endl;
     }
 
 }
 
-void push_back_arr(int *&arr, int &n) {
-    int k;
-    cout << "Сколько элементов массива добавить в конец массива: ";
-    cin >> k;
+void push_back_arr(int*& arr, int& n) {
+    int k, error = 0;
+    do
+    {
+        cout << "Сколько элементов массива добавить в конец массива (Указать их значение придется вручную): ";
+        cin >> k;
+        if (k < 0)
+        {
+            cout << "Ошибка, кол-во элементов не может быть отрицательным\nПопробуйте еще раз.\n";
+            error = 1;
+        }
+        else
+        {
+            if (k == 0)
+            {
+                break;
+            }
+            else
+            {
+                error = 0;
+            }
+        }
+    } while (error != 0);
+
     int* newArray = new int[n + k];
     for (int i = 0; i < n; i++)
     {
         newArray[i] = arr[i];
     }
-    cout << "Введите добавляемые элементы, " << k << " штук: " << endl;
+
     for (int i = n; i < (n + k); i++)
     {
         cin >> newArray[i];
@@ -79,17 +251,43 @@ void push_back_arr(int *&arr, int &n) {
     arr = newArray;
     n += k;
 }
+
 void push_front_arr(int*& arr, int& n)
 {
-    int k;
-    cout << "Сколько элементов массива добавить в начало массива: ";
-    cin >> k;
+    int k, error = 0;
+    do
+    {
+        cout << "Сколько элементов массива добавить в начало массива (Указать их значение придется вручную): ";
+        cin >> k;
+        if (k < 0)
+        {
+            cout << "Ошибка, кол-во элементов не может быть отрицательным\nПопробуйте еще раз.\n";
+            error = 1;
+        }
+        else
+        {
+            if (k == 0)
+            {
+                break;
+            }
+            else
+            {
+                error = 0;
+            }
+        }
+    } while (error != 0);
+
     int* newArray = new int[n + k];
     for (int i = 0; i < n; i++)
     {
-        newArray[i+k] = arr[i];
+        newArray[i + k] = arr[i];
     }
-    cout << "Введите добавляемые элементы, " << k << " штук: " << endl;
+
+    if (k > 0)
+    {
+        cout << "Введите добавляемые элементы, " << k << " штук: " << endl;
+    }
+
     for (int i = 0; i < k; i++)
     {
         cin >> newArray[i];
@@ -101,9 +299,38 @@ void push_front_arr(int*& arr, int& n)
 
 void delete_back_arr(int*& arr, int& n)
 {
-    int k;
-    cout << "Сколько элементов массива удалить в конце массива: ";
-    cin >> k;
+    int k, error = 0;
+    do
+    {
+        cout << "Сколько элементов массива удалить в конце массива: ";
+        cin >> k;
+        if (k < 0)
+        {
+            cout << "Ошибка, кол-во элементов не может быть отрицательным\nПопробуйте еще раз\n";
+            error = 1;
+        }
+        else
+        {
+            if (k == 0)
+            {
+                break;
+            }
+            else
+            {
+                if (k > n)
+                {
+                    cout << "Ощибка, кол-во удаляемых элементов не должно быть больше кол-ва элементов в массиве\nПопробуйте еще раз\n";
+                    error = 1;
+                }
+                else
+                {
+                    error = 0;
+                }
+
+            }
+        }
+    } while (error != 0);
+
     int* newArray = new int[n - k];
     for (int i = 0; i < (n - k); i++)
     {
@@ -115,16 +342,44 @@ void delete_back_arr(int*& arr, int& n)
 
 }
 
-
 void delete_front_arr(int*& arr, int& n)
 {
-    int k;
-    cout << "Сколько элементов массива удалить в начале массива: ";
-    cin >> k;
+    int k, error = 0;
+    do
+    {
+        cout << "Сколько элементов массива удалить в начале массива: ";
+        cin >> k;
+        if (k < 0)
+        {
+            cout << "Ошибка, кол-во элементов не может быть отрицательным\nПопробуйте еще раз\n";
+            error = 1;
+        }
+        else
+        {
+            if (k == 0)
+            {
+                break;
+            }
+            else
+            {
+                if (k > n)
+                {
+                    cout << "Ощибка, кол-во удаляемых элементов не должно быть больше кол-ва элементов в массиве\nПопробуйте еще раз\n";
+                    error = 1;
+                }
+                else
+                {
+                    error = 0;
+                }
+
+            }
+        }
+    } while (error != 0);
+
     int* newArray = new int[n - k];
     for (int i = 0; i < (n - k); i++)
     {
-        newArray[i] = arr[i+k];
+        newArray[i] = arr[i + k];
     }
     delete[]arr;
     arr = newArray;
@@ -134,9 +389,31 @@ void delete_front_arr(int*& arr, int& n)
 
 void push_k_arr(int*& arr, int& n)
 {
-    int k;
-    cout << "На какое место (всего мест " << n << ") массива добавить элемент: ";
-    cin >> k;
+    int k, error = 0;
+    do
+    {
+        cout << "На какой индекс (от 0, до " << n - 1 << ") массива добавить элемент: ";
+        cin >> k;
+        if (k < 0)
+        {
+            cout << "Ошибка, индекс элемента массива не может быть отрицательным.\nПопробуйте еще раз.\n";
+            error = 1;
+        }
+        else
+        {
+            if (k > n)
+            {
+                cout << "Ошибка, индекс добавляемого элемента не должен выходить за рамки массива.\nПопробуйте еще раз.\n";
+                error = 1;
+            }
+            else
+            {
+                error = 0;
+            }
+        }
+    } while (error != 0);
+
+    k++;
     int* newArray = new int[n + 1];
     for (int i = 0; i < k; i++)
     {
@@ -144,9 +421,9 @@ void push_k_arr(int*& arr, int& n)
     }
     cout << "Введите добавляемый элемент: ";
     cin >> newArray[k - 1];
-    for (int i = k; i <(n + 1); i++)
+    for (int i = k; i < (n + 1); i++)
     {
-        newArray[i] = arr[i-1];
+        newArray[i] = arr[i - 1];
     }
     delete[]arr;
     arr = newArray;
@@ -155,15 +432,25 @@ void push_k_arr(int*& arr, int& n)
 
 void delete_k_arr(int*& arr, int& n)
 {
-    int k;
-    cout << "Какой элемент (всего элементов " << n << " штук) массива удалить (введите номер от 1, до " << n << "): ";
-    cin >> k;
+    int k, error = 1;
+    do {
+        cout << "Какой элемент (всего элементов " << n << " штук) массива удалить (введите индекс от 0, до " << n - 1 << "): ";
+        cin >> k;
+        if (k < 0 || k > n - 1)
+        {
+            cout << "Ошибка, неправильно введен индекс (от 0, до " << n - 1 << "), попробуйте еще раз" << endl; error = 1;
+        }
+        else
+        {
+            error = 0;
+        }
+    } while (error != 0);
     int* newArray = new int[n - 1];
     for (int i = 0; i < k; i++)
     {
         newArray[i] = arr[i];
     }
-    for (int i = (k - 1); i < (n - 1); i++)
+    for (int i = k; i < (n - 1); i++)
     {
         newArray[i] = arr[i + 1];
     }
@@ -211,14 +498,14 @@ void delete_value_arr(int*& arr, int& n)
     cin >> k;
     for (int i = 0; i < n; i++)
     {
-        if(arr[i] == k) { result = 1; buf++; }
+        if (arr[i] == k) { result = 1; buf++; }
     }
     if (result == 1)
     {
         int* newArray = new int[n - buf];
         for (int i = 0; i < n; i++)
         {
-            if(arr[i] != k) 
+            if (arr[i] != k)
             {
                 newArray[i - buf2] = arr[i];
             }
