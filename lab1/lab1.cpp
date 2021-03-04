@@ -243,6 +243,8 @@ void push_back_arr(int*& arr, int& n) {
         newArray[i] = arr[i];
     }
 
+    cout << "Введите добавляемые элементы, " << k << " штук: " << endl;
+
     for (int i = n; i < (n + k); i++)
     {
         cin >> newArray[i];

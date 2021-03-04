@@ -1,0 +1,2 @@
+A:\c++ project\cpp-project\lab2\Debug\lab2.exe
+A:\c++ project\cpp-project\lab2\Debug\lab2.pdb
