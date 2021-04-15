@@ -1,6 +1,5 @@
-﻿  func.cpp
-A:\Repositories\cpp-project\lab3\func.cpp(53,11): warning C4101: popCost: неиспользованная локальная переменная
-A:\Repositories\cpp-project\lab3\func.cpp(54,9): warning C4101: popValue: неиспользованная локальная переменная
-A:\Repositories\cpp-project\lab3\func.cpp(55,10): warning C4101: check: неиспользованная локальная переменная
-A:\Repositories\cpp-project\lab3\func.cpp(54,19): warning C4101: popStoreValue: неиспользованная локальная переменная
+﻿  Queue.cpp
+A:\Repositories\cpp-project\lab3\Queue.cpp(192,70): warning C4244: +=: преобразование "float" в "int", возможна потеря данных
+A:\Repositories\cpp-project\lab3\Queue.cpp(211,70): warning C4244: +=: преобразование "float" в "int", возможна потеря данных
+A:\Repositories\cpp-project\lab3\Queue.cpp(261,38): warning C4244: +=: преобразование "float" в "int", возможна потеря данных
   lab3.vcxproj -> A:\Repositories\cpp-project\lab3\Debug\lab3.exe
