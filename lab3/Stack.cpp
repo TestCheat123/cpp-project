@@ -1,14 +1,14 @@
-#include "Stack.h"
+ï»¿#include "Stack.h"
 //#include <iostream>
 
 void menu()
 {
-	cout << "\nÌåíþ:";
-	cout << "\n   1. Âûâåñòè íà ýêðàí èíôîðìàöèþ î êîðèçíå.";
-	cout << "\n   2. Äîáàâèòü òîâàð â êîðçèíó.";
-	cout << "\n   3. Óäàëèòü òîâàð èç êîðçèí ïî åãî íàçâàíèþ.";
-	cout << "\n   4. Î÷èñòêà âñåé êîðçèíû.";
-	cout << "\n   0. Âûõîä èç ïðîãðàììû.";
+	cout << "\nÐœÐµÐ½ÑŽ:";
+	cout << "\n   1. Ð’Ñ‹Ð²ÐµÑÑ‚Ð¸ Ð½Ð° ÑÐºÑ€Ð°Ð½ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸ÑŽ Ð¾ ÐºÐ¾Ñ€Ð¸Ð·Ð½Ðµ.";
+	cout << "\n   2. Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ñ‚Ð¾Ð²Ð°Ñ€ Ð² ÐºÐ¾Ñ€Ð·Ð¸Ð½Ñƒ.";
+	cout << "\n   3. Ð£Ð´Ð°Ð»Ð¸Ñ‚ÑŒ Ñ‚Ð¾Ð²Ð°Ñ€ Ð¸Ð· ÐºÐ¾Ñ€Ð·Ð¸Ð½ Ð¿Ð¾ ÐµÐ³Ð¾ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸ÑŽ.";
+	cout << "\n   4. ÐžÑ‡Ð¸ÑÑ‚ÐºÐ° Ð²ÑÐµÐ¹ ÐºÐ¾Ñ€Ð·Ð¸Ð½Ñ‹.";
+	cout << "\n   0. Ð’Ñ‹Ñ…Ð¾Ð´ Ð¸Ð· Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ñ‹.";
 	cout << "\n>";
 }
 
@@ -29,21 +29,21 @@ void Choice(struct MyStack buff)
 				string name;
 				float cost;
 				int weight, value;
-				cout << "\nÄîáàâëåíèå òîâàðà â êîðçèíó";
-				cout << "\nÂâåäèòå íàçâàíèå òîâàðà: ";
+				cout << "\nÐ”Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ Ñ‚Ð¾Ð²Ð°Ñ€Ð° Ð² ÐºÐ¾Ñ€Ð·Ð¸Ð½Ñƒ";
+				cout << "\nÐ’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ Ñ‚Ð¾Ð²Ð°Ñ€Ð°: ";
 				cin >> name;
-				cout << "Ââåäèòå öåíó òîâàðà: ";
+				cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ†ÐµÐ½Ñƒ Ñ‚Ð¾Ð²Ð°Ñ€Ð°: ";
 				cin >> cost;
-				cout << "Ââåäèòå âåñ òîâàðà: ";
+				cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð²ÐµÑ Ñ‚Ð¾Ð²Ð°Ñ€Ð°: ";
 				cin >> weight;
-				cout << "Ââåäèòå êîë-âî òîâàðà íà ñêëàäå: ";
+				cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»-Ð²Ð¾ Ñ‚Ð¾Ð²Ð°Ñ€Ð° Ð½Ð° ÑÐºÐ»Ð°Ð´Ðµ: ";
 				cin >> value;
 				bool check;
 				check = buff.Push(name, cost, weight, value);
 				if (check)
-					cout << "Óñïåøíî çàâåðøåíî.\n";
+					cout << "Ð£ÑÐ¿ÐµÑˆÐ½Ð¾ Ð·Ð°Ð²ÐµÑ€ÑˆÐµÐ½Ð¾.\n";
 				else
-					cout << "Îøèáêà.\n";
+					cout << "ÐžÑˆÐ¸Ð±ÐºÐ°.\n";
 				break;
 			}
 			
@@ -53,20 +53,20 @@ void Choice(struct MyStack buff)
 				float popCost;
 				int popValue, popStoreValue;
 				bool check;
-				cout << "Óäàëåíèå òîâàðà èç êîðçèíû ïî íàçâàíèþ.\nÂâåäèòå íàçâàíèå: ";
+				cout << "Ð£Ð´Ð°Ð»ÐµÐ½Ð¸Ðµ Ñ‚Ð¾Ð²Ð°Ñ€Ð° Ð¸Ð· ÐºÐ¾Ñ€Ð·Ð¸Ð½Ñ‹ Ð¿Ð¾ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸ÑŽ.\nÐ’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ: ";
 				cin >> name;
 				buff.SearchPop(name, buff);
 				/*if (check)
 				{
-					cout << "\nÍàçâàíèå ñòåêà: " << buff.StackName;
-					cout << "\n Óäàëåííûé ýëåìåíò: " << popName;
-					cout << "\n   Óäàëåííûé ýëåìåíò cost: " << popCost;
-					cout << "\n   Óäàëåííûé ýëåìåíò value: " << popValue;
-					cout << "\n   Óäàëåííûé ýëåìåíò store: " << popStoreValue;
-					cout << "\nÓñïåøíî\n";
+					cout << "\nÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ ÑÑ‚ÐµÐºÐ°: " << buff.StackName;
+					cout << "\n Ð£Ð´Ð°Ð»ÐµÐ½Ð½Ñ‹Ð¹ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚: " << popName;
+					cout << "\n   Ð£Ð´Ð°Ð»ÐµÐ½Ð½Ñ‹Ð¹ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚ cost: " << popCost;
+					cout << "\n   Ð£Ð´Ð°Ð»ÐµÐ½Ð½Ñ‹Ð¹ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚ value: " << popValue;
+					cout << "\n   Ð£Ð´Ð°Ð»ÐµÐ½Ð½Ñ‹Ð¹ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚ store: " << popStoreValue;
+					cout << "\nÐ£ÑÐ¿ÐµÑˆÐ½Ð¾\n";
 				}
 				else
-					cout << "Îøèáêà.\n";*/
+					cout << "ÐžÑˆÐ¸Ð±ÐºÐ°.\n";*/
 				break;
 			}
 
@@ -76,7 +76,7 @@ void Choice(struct MyStack buff)
 				float popCost;
 				int popValue, popStoreValue;
 				bool check;
-				cout << "Î÷èñòêà âñåé êîðçèíû.\n";
+				cout << "ÐžÑ‡Ð¸ÑÑ‚ÐºÐ° Ð²ÑÐµÐ¹ ÐºÐ¾Ñ€Ð·Ð¸Ð½Ñ‹.\n";
 				do {
 					check = buff.Pop(popName, popCost, popValue, popStoreValue);
 				} while (check != false);
@@ -125,18 +125,18 @@ bool MyStack::Pop(string &name, float &cost, int &value, int &storeValue)
 }
 void MyStack::Info()
 {
-	cout << "Èíôîðìàöèÿ î Ñòåêå:\n";
-	cout << "Èìÿ ñòåêà: " << StackName << endl;
+	cout << "Ð˜Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ñ Ð¾ Ð¡Ñ‚ÐµÐºÐµ:\n";
+	cout << "Ð˜Ð¼Ñ ÑÑ‚ÐµÐºÐ°: " << StackName << endl;
 	if (!Top)
-		cout << "\tÑòåê ïóñòîé\n";
+		cout << "\tÐ¡Ñ‚ÐµÐº Ð¿ÑƒÑÑ‚Ð¾Ð¹\n";
 	else
 	{
-		cout << " Ðàçìåð ñòåêà = " << Count;
-		cout << "\n Èíôîðìàöèÿ î âåðõíåì òîâàðå: ";
-		cout << "\n   Èìÿ = " << Top->name;
-		cout << "\n   Öåíà = " << Top->cost;
-		cout << "\n   Âåñ îäíîãî òîâàðà = " << Top->Value;
-		cout << "\n   Êîë-âî íà ñêëàäå = " << Top->storeValue << endl;
+		cout << " Ð Ð°Ð·Ð¼ÐµÑ€ ÑÑ‚ÐµÐºÐ° = " << Count;
+		cout << "\n Ð˜Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ñ Ð¾ Ð²ÐµÑ€Ñ…Ð½ÐµÐ¼ Ñ‚Ð¾Ð²Ð°Ñ€Ðµ: ";
+		cout << "\n   Ð˜Ð¼Ñ = " << Top->name;
+		cout << "\n   Ð¦ÐµÐ½Ð° = " << Top->cost;
+		cout << "\n   Ð’ÐµÑ Ð¾Ð´Ð½Ð¾Ð³Ð¾ Ñ‚Ð¾Ð²Ð°Ñ€Ð° = " << Top->Value;
+		cout << "\n   ÐšÐ¾Ð»-Ð²Ð¾ Ð½Ð° ÑÐºÐ»Ð°Ð´Ðµ = " << Top->storeValue << endl;
 	}
 
 }
@@ -163,7 +163,7 @@ bool MyStack::SearchPop(string name, struct MyStack &Buff)
 		
 		if (check == false)
 		{
-			cout << "Èñêîìûé òîâàð íå íàéäåí.\n";
+			cout << "Ð˜ÑÐºÐ¾Ð¼Ñ‹Ð¹ Ñ‚Ð¾Ð²Ð°Ñ€ Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½.\n";
 			return false;
 		}
 
