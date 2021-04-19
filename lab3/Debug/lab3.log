@@ -1,5 +1,5 @@
 ﻿  Queue.cpp
-A:\Repositories\cpp-project\lab3\Queue.cpp(192,70): warning C4244: +=: преобразование "float" в "int", возможна потеря данных
-A:\Repositories\cpp-project\lab3\Queue.cpp(211,70): warning C4244: +=: преобразование "float" в "int", возможна потеря данных
-A:\Repositories\cpp-project\lab3\Queue.cpp(261,38): warning C4244: +=: преобразование "float" в "int", возможна потеря данных
+A:\Repositories\cpp-project\lab3\Queue.cpp(197,70): warning C4244: +=: преобразование "float" в "int", возможна потеря данных
+A:\Repositories\cpp-project\lab3\Queue.cpp(239,57): warning C4244: +=: преобразование "float" в "int", возможна потеря данных
+A:\Repositories\cpp-project\lab3\Queue.cpp(298,38): warning C4244: +=: преобразование "float" в "int", возможна потеря данных
   lab3.vcxproj -> A:\Repositories\cpp-project\lab3\Debug\lab3.exe

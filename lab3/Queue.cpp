@@ -20,73 +20,68 @@ void MyQueue::Choice()
 		cin >> V;
 		switch (V)
 		{
-			case 1:
+		case 1:
+		{
+			Data data;
+			cout << "Введите название товара: ";
+			cin >> data.name;
+			cout << "Введите кол-во товара на складе: ";
+			cin >> data.Value;
+			data.Buy = data.Value;
+			cout << "Введите цену закупки товара: ";
+			cin >> data.costbuy;
+			do
 			{
-				Data data;
-				cout << "Введите название товара: ";
-				cin >> data.name;
-				cout << "Введите кол-во товара на складе: ";
-				cin >> data.Value;
-				data.Buy = data.Value;
-				cout << "Введите цену закупки товара: ";
-				cin >> data.costbuy;
-				do
-				{
-					cout << "Введите цену продажи товара: ";
-					cin >> data.costSell;
-					if (data.costbuy >= data.costSell)
-						cout << "Цена продажи должна быть больше закупочной\nПопробуйте еще раз\n";
-				} while (data.costbuy >= data.costSell);
-				
-				data.Sold = 0;
+				cout << "Введите цену продажи товара: ";
+				cin >> data.costSell;
+				if (data.costbuy >= data.costSell)
+					cout << "Цена продажи должна быть больше закупочной\nПопробуйте еще раз\n";
+			} while (data.costbuy >= data.costSell);
 
-				Push(data);
+			data.Sold = 0;
 
-				break;
-			}
+			Push(data);
 
-			case 2:
+			break;
+		}
+
+		case 2:
+		{
+			Data data;
+			cout << "Введите название товара, который хотите купить: ";
+			cin >> data.name;
+			cout << "Введите кол-во покупаемого товара: ";
+			cin >> data.Value;
+
+			bool check;
+			check = Accept(data);
+			if (!check)
 			{
-				Data data;
-				cout << "Введите название товара, который хотите купить: ";
-				cin >> data.name;
-				cout << "Введите кол-во покупаемого товара: ";
-				cin >> data.Value;
-				
-				bool check;
-				check = Accept(data);
-				if (!check)
-				{
-					cout << "Данный товар не найден на складе, если хотите его добавить на склад, выберите пункт 1 в меню\n";
-				}
-				break;
+				cout << "Данный товар не найден на складе, если хотите его добавить на склад, выберите пункт 1 в меню\n";
 			}
+			break;
+		}
 
-			case 3:
-			{
-				Data data;
-				cout << "Введите название товара, который хотите продать: ";
-				cin >> data.name;
-				cout << "Введите кол-во продаваемого товара: ";
-				cin >> data.Value;
+		case 3:
+		{
+			Data data;
+			cout << "Введите название товара, который хотите продать: ";
+			cin >> data.name;
+			cout << "Введите кол-во продаваемого товара: ";
+			cin >> data.Value;
 
-				bool check;
-				check = Sell(data);
-				if (!check)
-				{
-					cout << "Данный товар не найден на складе, если хотите его добавить на склад, выберите пункт 1 в меню\n";
-				}
-				break;
-			}
+			bool check;
+			check = Sell(data);
+			break;
+		}
 
-			case 4:
-			{
-				bool check;
-				check = Report();
-				if (!check) cout << "Товаров на складе нет\n";
-				break;
-			}
-
+		case 4:
+		{
+			bool check;
+			check = Report();
+			if (!check) cout << "Товаров на складе нет\n";
+			break;
+		}
 		}
 	} while (V != 0);
 }
@@ -114,7 +109,7 @@ bool MyQueue::Push(struct Data data)
 	return true;
 }
 
-bool MyQueue::Pop(struct Data &Buff)
+bool MyQueue::Pop(struct Data& Buff)
 {
 	if (!First) return false;
 
@@ -131,44 +126,48 @@ bool MyQueue::Pop(struct Data &Buff)
 bool MyQueue::Accept(struct Data data)
 {
 	if (!First) return false;
+
+	if (First->data.name == data.name)
+	{
+		First->data.Value += data.Value;
+		First->data.Buy += data.Value;
+		return true;
+	}
 	else
 	{
 		Data Buff;
 		MyQueue Temp;
 		bool check = false;
-		if (First->data.name == data.name)
-		{
-			First->data.Value += data.Value;
-			First->data.Buy += data.Value;
-			return true;
-		}
-			
 		do
 		{
-			if (check)
+			if (check == true)
 				Temp.Push(Buff);
-			check = Pop(Buff);
-			if (!check) break;
 
+			check = Pop(Buff);
+			if (check == false) break;
 		} while (Buff.name != data.name);
 
-		if (check)
+		if (check == true)
 		{
-			First->data.Value += data.Value;
-			First->data.Sold += data.Value;
+			Buff.Value += data.Value;
+			Buff.Sold += data.Value;
 			do
 			{
-				check = Temp.Pop(Buff);
 				Push(Buff);
+				check = Temp.Pop(Buff);
 			} while (check != false);
 			return true;
 		}
-		else
+
+		if (check == false)
 		{
 			do
 			{
 				check = Temp.Pop(Buff);
-				Push(Buff);
+				if (check == true)
+				{
+					Push(Buff);
+				}
 			} while (check != false);
 			return false;
 		}
@@ -179,55 +178,93 @@ bool MyQueue::Accept(struct Data data)
 
 bool MyQueue::Sell(struct Data data)
 {
-	if (!First) return false;
-
-	Data Buff;
-	MyQueue Temp;
-	bool check = false;
+	if (!First) {
+		cout << "Склад пуст\n";
+		return false;
+	}
 
 	if (First->data.name == data.name)
 	{
-		First->data.Value -= data.Value;
-		First->data.Sold += data.Value;
-		Profit += data.Value * (First->data.costSell - First->data.costbuy);
-		if (First->data.Value == 0)
-			Pop(Buff);
-		return true;
-	}
-	
-	do
-	{
-		if (check)
-			Temp.Push(Buff);
-		check = Pop(Buff);
-		if (!check) break;
-
-	} while (Buff.name != data.name);
-	
-	if (check)
-	{
-		First->data.Value -= data.Value;
-		First->data.Sold += data.Value;
-		Profit += data.Value * (First->data.costSell - First->data.costbuy);
-		do
+		if (First->data.Value - data.Value < 0)
 		{
-			check = Temp.Pop(Buff);
-			Push(Buff);
-		} while (check != false);
+			cout << "Желаемое число товара на продажу, больше чем имеется, попробуйте снова\n";
+			return false;
+		}
+			
+		Data Buff;
+		First->data.Value -= data.Value;
+		First->data.Sold += data.Value;
+		Profit += data.Value * (First->data.costSell - First->data.costbuy);
 		if (First->data.Value == 0)
+		{
 			Pop(Buff);
+		}
+
 		return true;
 	}
 	else
 	{
+		Data Buff;
+		MyQueue Temp;
+		bool check = false;
 		do
 		{
-			check = Temp.Pop(Buff);
-			Push(Buff);
-		} while (check != false);
-		return false;
+			if (check == true)
+				Temp.Push(Buff);
+
+			check = Pop(Buff);
+			if (!check) break;
+
+		} while (Buff.name != data.name);
+
+		if (check == true)
+		{
+			if (Buff.Value - data.Value < 0)
+			{
+				cout << "Желаемое число товара на продажу, больше чем имеется, попробуйте снова\n";
+				Push(Buff);
+				do
+				{
+					check = Temp.Pop(Buff);
+					if (check == true)
+					{
+						Push(Buff);
+					}
+				} while (check != false);
+				return false;
+			}
+			
+			Buff.Value -= data.Value;
+			Buff.Sold += data.Value;
+			Profit += data.Value * (Buff.costSell - Buff.costbuy);
+			if(Buff.Value != 0)
+				Push(Buff);
+
+			do
+			{
+				check = Temp.Pop(Buff);
+				if (check == true)
+				{
+					Push(Buff);
+				}
+			} while (check != false);
+			return true;
+		}
+		else
+		{
+			do
+			{
+				check = Temp.Pop(Buff);
+				if (check == true)
+				{
+					Push(Buff);
+				}
+			} while (check != false);
+			cout << "Данный товар не найден на складе, если хотите его добавить на склад, выберите пункт 1 в меню\n";
+			return false;
+		}
 	}
-	
+
 }
 
 bool MyQueue::Report()
@@ -236,9 +273,9 @@ bool MyQueue::Report()
 	cout << "Отчет:\n";
 	if (!First)
 	{
-		cout << "Кол-во товара на складе: " << 0;
+		cout << "Кол-во всех товаров на складе: " << 0;
 		cout << "\nПрибыль от продажи: " << Profit << endl;
-	} 
+	}
 	else
 	{
 		int Value = 0, Cost = 0;
@@ -254,31 +291,34 @@ bool MyQueue::Report()
 		do
 		{
 			check = Pop(Buff);
-			
-			if (check)
+
+			if (check == true)
 			{
 				Value += Buff.Value;
 				Cost += Buff.Value * Buff.costbuy;
 				Temp.Push(Buff);
 			}
-				
+
 
 		} while (check != false);
 
 		do
 		{
+
 			check = Temp.Pop(Buff);
-			Push(Buff);
+			if(check == true)
+				Push(Buff);
+
 		} while (check != false);
 
 
-		
+
 		cout << "Кол-во товара на складе: " << Value;
 		cout << "\nСтоимость товара на складе " << Cost;
 		cout << "\nПрибыль от продажи: " << Profit << endl;
 	}
-	
-	
+
+
 	return true;
 }
 

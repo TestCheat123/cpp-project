@@ -15,74 +15,73 @@ void menu()
 void Choice(struct MyStack buff)
 {
 	int N;
-	do{
+	do {
 		menu();
 		cin >> N;
 		switch (N)
 		{
-			case 1:
-				buff.Info();
-				break;
+		case 1:
+			buff.Info();
+			break;
 
-			case 2:
-			{
-				string name;
-				float cost;
-				int weight, value;
-				cout << "\nДобавление товара в корзину";
-				cout << "\nВведите название товара: ";
-				cin >> name;
-				cout << "Введите цену товара: ";
-				cin >> cost;
-				cout << "Введите вес товара: ";
-				cin >> weight;
-				cout << "Введите кол-во товара на складе: ";
-				cin >> value;
-				bool check;
-				check = buff.Push(name, cost, weight, value);
-				if (check)
-					cout << "Успешно завершено.\n";
-				else
-					cout << "Ошибка.\n";
-				break;
-			}
-			
-			case 3:
-			{
-				string popName, name;
-				float popCost;
-				int popValue, popStoreValue;
-				bool check;
-				cout << "Удаление товара из корзины по названию.\nВведите название: ";
-				cin >> name;
-				buff.SearchPop(name, buff);
-				/*if (check)
-				{
-					cout << "\nНазвание стека: " << buff.StackName;
-					cout << "\n Удаленный элемент: " << popName;
-					cout << "\n   Удаленный элемент cost: " << popCost;
-					cout << "\n   Удаленный элемент value: " << popValue;
-					cout << "\n   Удаленный элемент store: " << popStoreValue;
-					cout << "\nУспешно\n";
-				}
-				else
-					cout << "Ошибка.\n";*/
-				break;
-			}
+		case 2:
+		{
+			string name;
+			float cost;
+			int weight, value;
+			cout << "\nДобавление товара в корзину";
+			cout << "\nВведите название товара: ";
+			cin >> name;
+			cout << "Введите цену товара: ";
+			cin >> cost;
+			cout << "Введите вес товара: ";
+			cin >> weight;
+			cout << "Введите кол-во товара на складе: ";
+			cin >> value;
+			bool check;
+			check = buff.Push(name, cost, weight, value);
+			if (check)
+				cout << "Успешно завершено.\n";
+			else
+				cout << "Ошибка.\n";
+			break;
+		}
 
-			case 4:
+		case 3:
+		{
+			string popName, name;
+			float popCost;
+			int popValue, popStoreValue;
+			bool check;
+			cout << "Удаление товара из корзины по названию.\nВведите название: ";
+			cin >> name;
+			buff.SearchPop(name, buff);
+			/*if (check)
 			{
-				string popName;
-				float popCost;
-				int popValue, popStoreValue;
-				bool check;
-				cout << "Очистка всей корзины.\n";
-				do {
-					check = buff.Pop(popName, popCost, popValue, popStoreValue);
-				} while (check != false);
-				break;
+			cout << "\nНазвание стека: " << buff.StackName;
+			cout << "\n Удаленный элемент: " << popName;
+			cout << "\n   Удаленный элемент cost: " << popCost;
+			cout << "\n   Удаленный элемент value: " << popValue;
+			cout << "\n   Удаленный элемент store: " << popStoreValue;
+			cout << "\nУспешно\n";
 			}
+			else
+			cout << "Ошибка.\n";*/
+			break;
+		}
 
+		case 4:
+		{
+			string popName;
+			float popCost;
+			int popValue, popStoreValue;
+			bool check;
+			cout << "Очистка всей корзины.\n";
+			do {
+				check = buff.Pop(popName, popCost, popValue, popStoreValue);
+			} while (check != false);
+			break;
+		}
 		}
 	} while (N != 0);
 }
@@ -110,7 +109,7 @@ bool MyStack::Push(string name, float cost, int Value, int storeValue)
 	return true;
 }
 
-bool MyStack::Pop(string &name, float &cost, int &value, int &storeValue)
+bool MyStack::Pop(string& name, float& cost, int& value, int& storeValue)
 {
 	if (!Top) return false;
 	Node* temp = Top->prev;
@@ -136,12 +135,12 @@ void MyStack::Info()
 		cout << "\n   Имя = " << Top->name;
 		cout << "\n   Цена = " << Top->cost;
 		cout << "\n   Вес одного товара = " << Top->Value;
-		cout << "\n   Кол-во на складе = " << Top->storeValue << endl;
+		cout << "\n   Кол-во товара в магазине = " << Top->storeValue << endl;
 	}
 
 }
 
-bool MyStack::SearchPop(string name, struct MyStack &Buff)
+bool MyStack::SearchPop(string name, struct MyStack& Buff)
 {
 	if (!Top) return false;
 	else
@@ -160,7 +159,7 @@ bool MyStack::SearchPop(string name, struct MyStack &Buff)
 				break;
 
 		} while (Name != name);
-		
+
 		if (check == false)
 		{
 			cout << "Искомый товар не найден.\n";
@@ -172,19 +171,19 @@ bool MyStack::SearchPop(string name, struct MyStack &Buff)
 		do
 		{
 			check = Temp.Pop(Name, cost, weight, value);
-			if(check == true)
+			if (check == true)
 				Buff.Push(Name, cost, weight, value);
 		} while (check != false);
 
 		return true;
 	}
-	
+
 }
 
 bool MyStack::FilePush()
 {
-	
-	struct FilesData{
+
+	struct FilesData {
 
 		string Name;
 		float cost;
@@ -195,18 +194,12 @@ bool MyStack::FilePush()
 
 	ifstream in("file.txt");
 
-	do
+	while (in >> Buff.Name >> Buff.cost >> Buff.weight >> Buff.value)
 	{
-		in >> Buff.Name;
-		in >> Buff.cost;
-		in >> Buff.weight;
-		in >> Buff.value;
-
 		Push(Buff.Name, Buff.cost, Buff.weight, Buff.value);
-		//Info();
+	}
+	//Info();
 
-	} while (!in.eof());
-	
 	in.close();
 	return true;
 }
