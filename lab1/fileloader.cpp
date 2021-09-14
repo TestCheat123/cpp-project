@@ -4,19 +4,20 @@
 #include <sstream>
 #include <string>
 
-void file::fileread(int **date, int val) {
+void file::fileread() {
 	std::string line;
 	std::fstream in("date.txt");
+	std::getline(in, line);
 	if (in.is_open()) {
 		while (std::getline(in, line))
 		{
-			fileloading.val++;
+			val++;
 		}
 	}
 
-	fileloading.date = new int* [6];
+	date = new int* [6];
 	for (int i = 0; i < val; i++) {
-		fileloading.date[i] = new int[val];
+		date[i] = new int[val];
 	}
 
 	std::string d;
@@ -27,7 +28,7 @@ void file::fileread(int **date, int val) {
 			std::istringstream ss(d);
 			int num;
 			while (ss >> num) {
-				fileloading.date[i][j] = num;
+				date[i][j] = num;
 				i++;
 				if (i > 5) {
 					j++;
@@ -44,9 +45,17 @@ void file::fileread(int **date, int val) {
 	in.close();
 }
 
-void file::deletedata(int** date, int val) {
+void file::deletedata() {
 	for (int i = 0; i < val; i++) {
-		delete[] fileloading.date[i];
+		delete[] date[i];
 	}
-	delete[] fileloading.date;
+	delete[] date;
+}
+
+void file::datasort() {
+	int temp1[6];	
+	for (int i = 0; i < val; i++)
+	{
+		
+	}
 }
