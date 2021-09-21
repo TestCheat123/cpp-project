@@ -1,35 +1,27 @@
 #pragma once
 
-struct datetime
+class datetime
 {
+private:
 	struct Data {
-		int sec;
-		int min;
-		int hour;
-		int days;
-		int month;
-		int year;
-	};
-	struct nData {
-		int sec;
-		int min;
-		int hour;
-		int days;
-		int month;
-		int year;
-	};
-	struct pData {
-		int sec;
-		int min;
-		int hour;
-		int days;
-		int month;
-		int year;
-	};
-	
+		int sec = 0;
+		int min = 0;
+		int hour = 0;
+		int days = 0;
+		int month = 0;
+		int year = 0;
+	};	
 
+	Data data;
+	Data ndata;
+	Data pdata;
+	int number;
 
-	void show(struct Data data, struct nData ndata, struct pData pdata, int number);
-	void nextdate();
+public:
+	void show(struct Data dat);
+	void showall();
+	void nDataS();
+	void pDataS();
+	void get(int** date, int num);
 };
 

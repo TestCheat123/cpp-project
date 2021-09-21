@@ -7,7 +7,7 @@
 void file::fileread() {
 	std::string line;
 	std::fstream in("date.txt");
-	std::getline(in, line);
+	//std::getline(in, line);
 	if (in.is_open()) {
 		while (std::getline(in, line))
 		{
@@ -15,10 +15,15 @@ void file::fileread() {
 		}
 	}
 
+	
+
 	date = new int* [6];
-	for (int i = 0; i < val; i++) {
+	for (int i = 0; i < 6; i++) {
 		date[i] = new int[val];
 	}
+
+	in.clear();
+	in.seekg(0, std::ios::beg);
 
 	std::string d;
 	if (in.is_open()) {
@@ -26,14 +31,8 @@ void file::fileread() {
 		int j = 0;
 		while (std::getline(in, d)) {
 			std::istringstream ss(d);
-			int num;
-			while (ss >> num) {
-				date[i][j] = num;
-				i++;
-				if (i > 5) {
-					j++;
-					i = 0;
-				};
+			while (ss >> date[0][j] >> date[1][j] >> date[2][j] >> date[3][j] >> date[4][j] >> date[5][j]) {
+				j++;
 			}
 
 		}
