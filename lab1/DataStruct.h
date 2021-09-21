@@ -16,12 +16,15 @@ private:
 	Data ndata;
 	Data pdata;
 	int number;
+	int **sysDateTime;
 
 public:
+	void showSysDateTime();
 	void show(struct Data dat);
 	void showall();
 	void nDataS();
 	void pDataS();
 	void get(int** date, int num);
+	void showNextMon();
 };
 

@@ -1,5 +1,35 @@
 #include "DataStruct.h"
 #include <iostream>
+#pragma warning(disable : 4996)
+
+void datetime::showSysDateTime() {
+	time_t now = time(0);
+	tm* ltm = localtime(&now);
+	sysDateTime = new int* [6];
+	for (int i = 0; i < 6; i++) {
+		sysDateTime[i] = new int[1];
+	}
+	sysDateTime[0][0] = ltm->tm_mday;
+	sysDateTime[1][0] = 1 + ltm->tm_mon;
+	sysDateTime[2][0] = 1970 + ltm->tm_year;
+	sysDateTime[3][0] = 1 + ltm->tm_hour;
+	sysDateTime[4][0] = 1 + ltm->tm_min;
+	sysDateTime[5][0] = 1 + ltm->tm_sec;
+
+	get(sysDateTime, 1);
+	std::cout << "Local date and time: " << std::endl;
+	show(data);
+	std::cout << std::endl << std::endl;
+
+	for (int i = 0; i < 1; i++) {
+		delete[] sysDateTime[i];
+	}
+	delete[] sysDateTime;
+}
+
+void datetime::showNextMon() {
+	if (data.month < ndata.month) showall();
+}
 
 void datetime::get(int **date, int num) {
 	number = num;
@@ -38,7 +68,7 @@ void datetime::show(struct Data dat) {
 }
 
 void datetime::showall(){ 
-std::cout << "" << number << ": "; show(data); std::cout <<"\tNext "; show(ndata); std::cout << "\tPrevious "; show(pdata); std::cout << std::endl;
+std::cout << " " << number << ": "; show(data); std::cout <<"\tNext "; show(ndata); std::cout << "\tPrevious "; show(pdata); std::cout << " " << std::endl;
 }
 
 void datetime::nDataS() {
