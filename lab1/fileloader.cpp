@@ -3,8 +3,9 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#define N 1
 
-void file::fileread() {
+File::File() {
 	std::string line;
 	std::fstream in("date.txt");
 	//std::getline(in, line);
@@ -14,14 +15,21 @@ void file::fileread() {
 			val++;
 		}
 	}
-
-	
-
 	date = new int* [6];
 	for (int i = 0; i < 6; i++) {
 		date[i] = new int[val];
 	}
 
+	in.close();
+}
+
+File::~File() {
+	deletedata();
+}
+
+void File::fileread() {
+	std::string line;
+	std::fstream in("date.txt");
 	in.clear();
 	in.seekg(0, std::ios::beg);
 
@@ -44,17 +52,9 @@ void file::fileread() {
 	in.close();
 }
 
-void file::deletedata() {
+void File::deletedata() {
 	for (int i = 0; i < val; i++) {
 		delete[] date[i];
 	}
 	delete[] date;
-}
-
-void file::datasort() {
-	int temp1[6];	
-	for (int i = 0; i < val; i++)
-	{
-		
-	}
 }
